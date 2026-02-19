@@ -8,6 +8,7 @@ import Footer from ‘./components/Footer.jsx’;
 import ‘./App.css’;
 
 const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const isInPhantom = () => window.solana?.isPhantom;
 
 export default function App() {
 const [wallet, setWallet] = useState(null);
@@ -15,6 +16,7 @@ const [walletAddress, setWalletAddress] = useState(null);
 const [selectedPackage, setSelectedPackage] = useState(null);
 const [createdToken, setCreatedToken] = useState(null);
 const [notification, setNotification] = useState(null);
+const [showBanner, setShowBanner] = useState(true);
 
 const notify = useCallback((msg, type = ‘info’) => {
 setNotification({ msg, type, id: Date.now() });
@@ -23,35 +25,26 @@ setTimeout(() => setNotification(null), 5000);
 
 const connectWallet = useCallback(async () => {
 try {
+if (!window.solana?.isPhantom) {
 if (isMobile()) {
-if (!window.solana?.isPhantom) {
-// Correct Phantom deeplink for mobile
-const siteUrl = encodeURIComponent(window.location.href);
-window.location.href = `phantom://browse?url=${siteUrl}`;
-return;
-}
+notify(‘Open this site inside Phantom app browser 👻’, ‘info’);
 } else {
-if (!window.solana?.isPhantom) {
 window.open(‘https://phantom.app/’, ‘_blank’);
 notify(‘Please install Phantom wallet extension’, ‘info’);
+}
 return;
 }
-}
-
-```
-  const resp = await window.solana.connect();
-  setWallet(window.solana);
-  setWalletAddress(resp.publicKey.toBase58());
-  notify('Wallet connected! ✓', 'success');
+const resp = await window.solana.connect();
+setWallet(window.solana);
+setWalletAddress(resp.publicKey.toBase58());
+notify(‘Wallet connected! ✓’, ‘success’);
 } catch (err) {
-  if (err.code === 4001) {
-    notify('Connection rejected', 'error');
-  } else {
-    notify('Failed to connect: ' + err.message, 'error');
-  }
+if (err.code === 4001) {
+notify(‘Connection rejected’, ‘error’);
+} else {
+notify(’Failed to connect: ’ + err.message, ‘error’);
 }
-```
-
+}
 }, [notify]);
 
 const disconnectWallet = useCallback(async () => {
@@ -73,6 +66,10 @@ setWalletAddress(resp.publicKey.toBase58());
 }
 }, []);
 
+const mobile = isMobile();
+const inPhantom = isInPhantom();
+const siteUrl = typeof window !== ‘undefined’ ? window.location.host : ‘pspalap.vercel.app’;
+
 return (
 <div className="app">
 <div className="bg-grid" />
@@ -84,6 +81,17 @@ return (
     onConnect={connectWallet}
     onDisconnect={disconnectWallet}
   />
+
+  {/* Mobile Phantom banner — only show on mobile when NOT in Phantom */}
+  {mobile && !inPhantom && showBanner && (
+    <div className="phantom-banner">
+      <span className="phantom-banner__icon">👻</span>
+      <div className="phantom-banner__text">
+        <strong>Using mobile?</strong> Open <span className="phantom-banner__url">{siteUrl}</span> inside the <strong>Phantom app browser</strong> to connect your wallet.
+      </div>
+      <button className="phantom-banner__close" onClick={() => setShowBanner(false)}>×</button>
+    </div>
+  )}
 
   {notification && (
     <div className={`notification notification--${notification.type}`} key={notification.id}>
