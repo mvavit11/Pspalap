@@ -8,7 +8,7 @@ import RecentTokens from './components/RecentTokens.jsx';
 import AuthorityInfo from './components/AuthorityInfo.jsx';
 import Footer from './components/Footer.jsx';
 export default function Main() {
-const { publicKey, disconnect, connected } = useWallet();
+const { publicKey, disconnect } = useWallet();
 const { setVisible } = useWalletModal();
 const [selectedPackage, setSelectedPackage] = useState(null);
 const [createdToken, setCreatedToken] = useState(null);
@@ -27,6 +27,9 @@ await disconnect();
 setSelectedPackage(null);
 notify('Wallet disconnected', 'info');
 }, [disconnect, notify]);
+const notifClass = notification
+? 'notification notification--' + notification.type
+: '';
 return (
 <div className="app">
 <div className="bg-grid" />
@@ -37,7 +40,7 @@ onConnect={connectWallet}
 onDisconnect={disconnectWallet}
 />
 {notification && (
-<div className={'notification notification--' + notification.type} key={notification.
+<div className={notifClass} key={notification.id}>
 <span>{notification.msg}</span>
 </div>
 )}
@@ -45,7 +48,8 @@ onDisconnect={disconnectWallet}
 <section className="hero animate-in">
 <div className="hero__tag">Solana Mainnet - SPL Token Standard</div>
 <h1 className="hero__title">
-Launch Your<br />
+Launch Your
+<br />
 <span className="hero__title-accent">SPL Token</span>
 </h1>
 <p className="hero__sub">
@@ -75,7 +79,10 @@ onNotify={notify}
 )}
 {createdToken && (
 <section className="section animate-in">
-<TokenResult token={createdToken} onDismiss={() => setCreatedToken(null)} />
+<TokenResult
+token={createdToken}
+onDismiss={() => setCreatedToken(null)}
+/>
 </section>
 )}
 <section className="section animate-in" id="authority">
@@ -90,6 +97,8 @@ onNotify={notify}
 );
 }
 function TokenResult({ token, onDismiss }) {
+const mintUrl = 'https://solscan.io/token/' + token.mint;
+const txUrl = 'https://solscan.io/tx/' + token.signature;
 return (
 <div className="token-result">
 <div className="token-result__header">
@@ -101,7 +110,12 @@ return (
 <label>Mint Address</label>
 <div className="token-result__value mono">
 {token.mint}
-<button className="copy-btn" onClick={() => navigator.clipboard.writeText(token.m
+<button
+className="copy-btn"
+onClick={() => navigator.clipboard.writeText(token.mint)}
+>
+copy
+</button>
 </div>
 </div>
 {token.signature && (
@@ -109,7 +123,12 @@ return (
 <label>Transaction</label>
 <div className="token-result__value mono">
 {token.signature.slice(0, 20)}...
-<button className="copy-btn" onClick={() => navigator.clipboard.writeText(token
+<button
+className="copy-btn"
+onClick={() => navigator.clipboard.writeText(token.signature)}
+>
+copy
+</button>
 </div>
 </div>
 )}
@@ -131,12 +150,18 @@ return (
 </div>
 </div>
 <div className="token-result__actions">
-<a href={'https://solscan.io/token/' + token.mint} target="_blank" rel="noreferrer" c
+<a href={mintUrl} target="_blank" rel="noreferrer" className="btn btn--accent">
+View on Solscan
+</a>
 {token.signature && (
-<a href={'https://solscan.io/tx/' + token.signature} target="_blank" rel="noreferre
+<a href={txUrl} target="_blank" rel="noreferrer" className="btn btn--outline">
+Transaction
+</a>
 )}
+<button className="btn btn--ghost" onClick={onDismiss}>
+Create Another
+</button>
 </div>
 </div>
-<button className="btn btn--ghost" onClick={onDismiss}>Create Another</button>
 );
 }
