@@ -122,5 +122,9 @@ body > div,
   background: #080a0f !important;
   min-height: 100vh;
 }
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
 
 
