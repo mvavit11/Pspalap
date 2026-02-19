@@ -2,23 +2,29 @@ import React, { useEffect } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 // Вставь свой Telegram username сюда (без @)
 const TELEGRAM_USERNAME = 'mv0898'
-const WALLET_ICONS = {
-Phantom: (
-<svg viewBox="0 0 128 128" className="w-8 h-8" fill="none">
+function PhantomIcon() {
+return (
+<svg viewBox="0 0 128 128" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/
 <rect width="128" height="128" rx="32" fill="#AB9FF2"/>
-<path d="M110.584 64.923c0 24.868-20.156 45.024-45.024 45.024-24.868 0-45.024-20.156-45
-<path d="M93.967 62.238c-1.374-7.568-8.012-13.307-15.98-13.307-7.43 0-13.726 5.024-15.6
-<circle cx="57.5" cy="71.5" r="3.5" fill="white"/>
-<circle cx="78.5" cy="71.5" r="3.5" fill="white"/>
+<ellipse cx="65" cy="65" rx="45" ry="45" fill="white"/>
+<ellipse cx="57.5" cy="71.5" rx="5.5" ry="6" fill="#AB9FF2"/>
+<ellipse cx="78.5" cy="71.5" rx="5.5" ry="6" fill="#AB9FF2"/>
+<path d="M40 58 Q65 44 90 58 Q90 82 65 90 Q40 82 40 58Z" fill="#AB9FF2" opacity="0.5"/>
 </svg>
-),
-Solflare: (
-<svg viewBox="0 0 128 128" className="w-8 h-8" fill="none">
+)
+}
+function SolflareIcon() {
+return (
+<svg viewBox="0 0 128 128" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/
 <rect width="128" height="128" rx="32" fill="#FC6621"/>
-<path d="M64 24L97 88H31L64 24z" fill="white" opacity="0.9"/>
-<path d="M64 44L85 80H43L64 44z" fill="#FC6621"/>
+<polygon points="64,24 97,88 31,88" fill="white" opacity="0.9"/>
+<polygon points="64,44 85,80 43,80" fill="#FC6621"/>
 </svg>
-),
+)
+}
+const WALLET_ICONS = {
+Phantom: <PhantomIcon />,
+Solflare: <SolflareIcon />,
 }
 export default function WalletModal({ onClose }) {
 const { wallets, select, connecting } = useWallet()
@@ -46,11 +52,13 @@ onClick={onClose}
 <div className="relative w-full max-w-sm z-10 animate-slide-up">
 <div className="animated-border rounded-2xl overflow-hidden">
 <div className="bg-dark-300 p-6">
+{/* Header */}
 <div className="flex items-center justify-between mb-6">
 <div>
 </div>
 <h2 className="font-display text-2xl text-white tracking-wider">CONNECT WALLE
 <p className="text-white/40 text-xs font-mono mt-1">Select your Solana wallet
+{/* Крестик */}
 <button
 type="button"
 onClick={(e) => { e.stopPropagation(); onClose() }}
@@ -65,6 +73,7 @@ className="text-white/50 group-hover:text-red-400 transition-colors">
 </svg>
 </button>
 </div>
+{/* Detected wallets */}
 {detectedWallets.length > 0 && (
 <div className="mb-4">
 <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-3"
@@ -90,6 +99,7 @@ className="w-full flex items-center gap-4 p-4 bg-dark-200 hover:bg-prim
 </div>
 </div>
 )}
+{/* Not detected */}
 {notDetected.length > 0 && (
 <div>
 )}
@@ -110,21 +120,22 @@ className="w-full flex items-center gap-4 p-4 bg-dark-200/50 hover:bg-d
 <span className="font-semibold text-white/70 group-hover:text-white tra
 {wallet.adapter.name}
 </span>
-</button>
 <span className="ml-auto text-xs text-white/30 font-mono">Not installed
+</button>
 ))}
 </div>
 </div>
 )}
+{/* Footer */}
 <div className="border-t border-white/5 mt-5 pt-4 space-y-3">
 <a
-href={`https://t.me/${TELEGRAM_USERNAME}`}
+href={"https://t.me/" + TELEGRAM_USERNAME}
 target="_blank"
 rel="noopener noreferrer"
 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg
 >
 <svg className="w-4 h-4 text-[#229ED9]" viewBox="0 0 24 24" fill="currentColo
-<path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12
+<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0
 </svg>
 <span className="text-[#229ED9] text-sm font-medium group-hover:text-white tr
 Need help? Contact Support
