@@ -61,4 +61,18 @@ body * {
   width: 100%;
   overflow: hidden;
 }
+.main {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.section {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 
