@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import './wallet-override.css';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import Header from './components/Header.jsx';
