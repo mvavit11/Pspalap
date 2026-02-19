@@ -43,3 +43,13 @@ body * {
 .wallet-adapter-modal-overlay {
   background: rgba(0,0,0,0.8) !important;
 }
+* {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.app, .main {
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
