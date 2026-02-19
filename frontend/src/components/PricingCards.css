@@ -1,21 +1,21 @@
-.pricing__header {
+.pricing_header {
 text-align: center;
 margin-bottom: 40px;
 }
 
-.pricing__title {
+.pricing_title {
 font-size: 36px;
 font-weight: 800;
 letter-spacing: -0.02em;
 margin-bottom: 8px;
 }
 
-.pricing__sub {
+.pricing_sub {
 color: var(–text2);
 font-size: 15px;
 }
 
-.pricing__cards {
+.pricing_cards {
 display: flex;
 flex-direction: column;
 gap: 20px;
@@ -23,7 +23,7 @@ width: 100%;
 }
 
 @media (min-width: 900px) {
-.pricing__cards {
+.pricing_cards {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 }
@@ -68,60 +68,60 @@ border-color: rgba(var(–plan-rgb), 0.25);
 background: linear-gradient(145deg, rgba(var(–plan-rgb), 0.04), var(–bg2));
 }
 
-.plan-card__header {
+.plan-card_header {
 display: flex;
 justify-content: space-between;
 align-items: flex-start;
 }
 
-.plan-card__tier-row {
+.plan-card_tier-row {
 display: flex;
 align-items: center;
 gap: 10px;
 }
 
-.plan-card__icon {
+.plan-card_icon {
 font-size: 24px;
 line-height: 1;
 }
 
-.plan-card__tier {
+.plan-card_tier {
 font-size: 18px;
 font-weight: 700;
 color: var(–text);
 }
 
-.plan-card__tag {
+.plan-card_tag {
 font-size: 10px;
 font-weight: 600;
 text-transform: uppercase;
 letter-spacing: 0.08em;
 }
 
-.plan-card__price {
+.plan-card_price {
 text-align: right;
 }
 
-.plan-card__price-value {
+.plan-card_price-value {
 font-size: 28px;
 font-weight: 800;
 color: var(–plan-accent);
 font-family: var(–font-mono);
 }
 
-.plan-card__price-unit {
+.plan-card_price-unit {
 font-size: 14px;
 color: var(–text3);
 margin-left: 4px;
 }
 
-.plan-card__desc {
+.plan-card_desc {
 font-size: 13px;
 color: var(–text2);
 line-height: 1.5;
 }
 
-.plan-card__features {
+.plan-card_features {
 list-style: none;
 display: flex;
 flex-direction: column;
@@ -129,7 +129,7 @@ gap: 8px;
 flex: 1;
 }
 
-.plan-card__feature {
+.plan-card_feature {
 display: flex;
 align-items: flex-start;
 gap: 8px;
@@ -138,15 +138,15 @@ color: var(–text2);
 line-height: 1.4;
 }
 
-.plan-card__feature–off {
+.plan-card_feature–off {
 opacity: 0.35;
 }
 
-.plan-card__feature–highlight {
+.plan-card_feature–highlight {
 color: var(–text);
 }
 
-.plan-card__feature-check {
+.plan-card_feature-check {
 color: var(–plan-accent);
 font-weight: 700;
 font-size: 12px;
@@ -155,11 +155,11 @@ width: 14px;
 margin-top: 1px;
 }
 
-.plan-card__feature–off .plan-card__feature-check {
+.plan-card_feature–off .plan-card_feature-check {
 color: var(–text3);
 }
 
-.plan-card__note {
+.plan-card_note {
 font-size: 11px;
 color: var(–green);
 background: rgba(0,230,118,0.06);
@@ -168,7 +168,7 @@ border-radius: var(–radius);
 padding: 8px 12px;
 }
 
-.plan-card__btn {
+.plan-card_btn {
 width: 100%;
 padding: 12px;
 background: rgba(var(–plan-rgb), 0.1);
@@ -182,7 +182,7 @@ transition: all 0.2s;
 font-family: var(–font-display);
 }
 
-.plan-card__btn:hover {
+.plan-card_btn:hover {
 background: rgba(var(–plan-rgb), 0.2);
 transform: translateY(-1px);
 }
