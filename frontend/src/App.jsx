@@ -7,7 +7,6 @@ import AuthorityInfo from ‘./components/AuthorityInfo.jsx’;
 import Footer from ‘./components/Footer.jsx’;
 import ‘./App.css’;
 
-// Detect mobile browser
 const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 export default function App() {
@@ -24,16 +23,14 @@ setTimeout(() => setNotification(null), 5000);
 
 const connectWallet = useCallback(async () => {
 try {
-// Mobile: open Phantom app via deeplink
 if (isMobile()) {
 if (!window.solana?.isPhantom) {
-// Open current page inside Phantom browser
-const currentUrl = encodeURIComponent(window.location.href);
-window.location.href = `https://phantom.app/ul/browse/${currentUrl}?ref=${encodeURIComponent(window.location.origin)}`;
+// Correct Phantom deeplink for mobile
+const siteUrl = encodeURIComponent(window.location.href);
+window.location.href = `phantom://browse?url=${siteUrl}`;
 return;
 }
 } else {
-// Desktop: redirect to install if not found
 if (!window.solana?.isPhantom) {
 window.open(‘https://phantom.app/’, ‘_blank’);
 notify(‘Please install Phantom wallet extension’, ‘info’);
@@ -45,10 +42,10 @@ return;
   const resp = await window.solana.connect();
   setWallet(window.solana);
   setWalletAddress(resp.publicKey.toBase58());
-  notify('Wallet connected!', 'success');
+  notify('Wallet connected! ✓', 'success');
 } catch (err) {
   if (err.code === 4001) {
-    notify('Connection rejected by user', 'error');
+    notify('Connection rejected', 'error');
   } else {
     notify('Failed to connect: ' + err.message, 'error');
   }
@@ -65,7 +62,6 @@ setSelectedPackage(null);
 notify(‘Wallet disconnected’, ‘info’);
 }, [notify]);
 
-// Auto-connect if previously connected
 useEffect(() => {
 if (window.solana?.isPhantom) {
 window.solana.connect({ onlyIfTrusted: true })
@@ -96,7 +92,6 @@ return (
   )}
 
   <main className="main">
-    {/* Hero — compact */}
     <section className="hero animate-in">
       <div className="hero__tag">Solana Mainnet · SPL Token Standard</div>
       <h1 className="hero__title">
@@ -108,14 +103,12 @@ return (
       </p>
     </section>
 
-    {/* Pricing — always visible */}
     {!selectedPackage && !createdToken && (
       <section className="section animate-in" id="plans" style={{ animationDelay: '0.1s' }}>
         <PricingCards onSelect={setSelectedPackage} />
       </section>
     )}
 
-    {/* Token Form */}
     {selectedPackage && !createdToken && (
       <section className="section animate-in" id="plans">
         <TokenForm
@@ -126,7 +119,7 @@ return (
           onTokenCreated={(token) => {
             setCreatedToken(token);
             setSelectedPackage(null);
-            notify('Token created successfully! 🎉', 'success');
+            notify('Token created! 🎉', 'success');
           }}
           onBack={() => setSelectedPackage(null)}
           onNotify={notify}
@@ -134,19 +127,16 @@ return (
       </section>
     )}
 
-    {/* Result */}
     {createdToken && (
       <section className="section animate-in">
         <TokenResult token={createdToken} onDismiss={() => setCreatedToken(null)} />
       </section>
     )}
 
-    {/* Authority info */}
     <section className="section animate-in" id="authority" style={{ animationDelay: '0.15s' }}>
       <AuthorityInfo />
     </section>
 
-    {/* Recent tokens */}
     <section className="section animate-in" id="recent" style={{ animationDelay: '0.2s' }}>
       <RecentTokens />
     </section>
@@ -166,59 +156,43 @@ return (
 <div className="token-result__icon">✓</div>
 <h2>Token Created!</h2>
 </div>
-
-```
-  <div className="token-result__fields">
-    <div className="token-result__field">
-      <label>Mint Address</label>
-      <div className="token-result__value mono">
-        {token.mint}
-        <button className="copy-btn" onClick={() => navigator.clipboard.writeText(token.mint)}>⧉</button>
-      </div>
-    </div>
-
-    {token.signature && (
-      <div className="token-result__field">
-        <label>Transaction</label>
-        <div className="token-result__value mono">
-          {token.signature.slice(0, 20)}...
-          <button className="copy-btn" onClick={() => navigator.clipboard.writeText(token.signature)}>⧉</button>
-        </div>
-      </div>
-    )}
-
-    <div className="token-result__field">
-      <label>Mint Authority</label>
-      <div className="token-result__value">
-        {token.mintAuthority
-          ? <span className="badge badge--warn">Retained</span>
-          : <span className="badge badge--safe">Revoked ✓</span>}
-      </div>
-    </div>
-
-    <div className="token-result__field">
-      <label>Freeze Authority</label>
-      <div className="token-result__value">
-        {token.freezeAuthority
-          ? <span className="badge badge--warn">Retained</span>
-          : <span className="badge badge--safe">Revoked ✓</span>}
-      </div>
-    </div>
-  </div>
-
-  <div className="token-result__actions">
-    <a href={`https://solscan.io/token/${token.mint}`} target="_blank" rel="noreferrer" className="btn btn--accent">
-      View on Solscan ↗
-    </a>
-    {token.signature && (
-      <a href={`https://solscan.io/tx/${token.signature}`} target="_blank" rel="noreferrer" className="btn btn--outline">
-        Transaction ↗
-      </a>
-    )}
-    <button className="btn btn--ghost" onClick={onDismiss}>Create Another</button>
-  </div>
+<div className="token-result__fields">
+<div className="token-result__field">
+<label>Mint Address</label>
+<div className="token-result__value mono">
+{token.mint}
+<button className=“copy-btn” onClick={() => navigator.clipboard.writeText(token.mint)}>⧉</button>
 </div>
-```
-
+</div>
+{token.signature && (
+<div className="token-result__field">
+<label>Transaction</label>
+<div className="token-result__value mono">
+{token.signature.slice(0, 20)}…
+<button className=“copy-btn” onClick={() => navigator.clipboard.writeText(token.signature)}>⧉</button>
+</div>
+</div>
+)}
+<div className="token-result__field">
+<label>Mint Authority</label>
+<div className="token-result__value">
+{token.mintAuthority ? <span className="badge badge--warn">Retained</span> : <span className="badge badge--safe">Revoked ✓</span>}
+</div>
+</div>
+<div className="token-result__field">
+<label>Freeze Authority</label>
+<div className="token-result__value">
+{token.freezeAuthority ? <span className="badge badge--warn">Retained</span> : <span className="badge badge--safe">Revoked ✓</span>}
+</div>
+</div>
+</div>
+<div className="token-result__actions">
+<a href={`https://solscan.io/token/${token.mint}`} target=”_blank” rel=“noreferrer” className=“btn btn–accent”>View on Solscan ↗</a>
+{token.signature && (
+<a href={`https://solscan.io/tx/${token.signature}`} target=”_blank” rel=“noreferrer” className=“btn btn–outline”>Transaction ↗</a>
+)}
+<button className="btn btn--ghost" onClick={onDismiss}>Create Another</button>
+</div>
+</div>
 );
 }
