@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0a0a0f;
+    color: #e0e0f0;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d0d17;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00FFA3;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: rgba(0, 255, 163, 0.3);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center px-6 py-3 font-body font-semibold text-dark-50 bg-primary rounded-lg transition-all duration-200 hover:shadow-[0_0_30px_rgba(0,255,163,0.5)] hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center justify-center px-6 py-3 font-body font-semibold text-primary border border-primary rounded-lg transition-all duration-200 hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(0,255,163,0.3)] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .glass-card {
+    @apply bg-dark-300/60 backdrop-blur-md border border-white/5 rounded-2xl;
+  }
+
+  .neon-text {
+    @apply text-primary drop-shadow-[0_0_10px_rgba(0,255,163,0.8)];
+  }
+
+  .input-field {
+    @apply w-full bg-dark-200/80 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 font-body text-sm focus:outline-none focus:border-primary/60 focus:bg-dark-200 transition-all duration-200;
+  }
+
+  .label-field {
+    @apply block text-white/60 text-xs font-mono uppercase tracking-widest mb-2;
+  }
+
+  .plan-card {
+    @apply relative glass-card p-6 cursor-pointer transition-all duration-300;
+  }
+
+  .plan-card.selected {
+    @apply border-primary/50 bg-primary/5 shadow-[0_0_30px_rgba(0,255,163,0.15)];
+  }
+
+  .plan-card:not(.selected):hover {
+    @apply border-white/15 bg-dark-300/80;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #00FFA3, #DC1FFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(#12121f, #12121f) padding-box,
+                linear-gradient(135deg, #00FFA3, #DC1FFF) border-box;
+  }
+
+  .glow-green {
+    box-shadow: 0 0 20px rgba(0, 255, 163, 0.4), 0 0 60px rgba(0, 255, 163, 0.15);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(220, 31, 255, 0.4), 0 0 60px rgba(220, 31, 255, 0.15);
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Animated gradient border */
+.animated-border {
+  position: relative;
+  background: linear-gradient(#12121f, #12121f) padding-box;
+  border: 1px solid transparent;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(var(--angle, 0deg), #00FFA3, #DC1FFF, #00D4FF, #00FFA3);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderRotate 4s linear infinite;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderRotate {
+  to { --angle: 360deg; }
+}
+
+/* Scan line effect */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,163,0.08), transparent);
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Number ticker */
+@keyframes ticker {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+.ticker-num {
+  display: inline-block;
+  animation: countPop 0.3s ease-out;
+}
+
+@keyframes countPop {
+  0% { transform: scale(1.4); color: #00FFA3; }
+  100% { transform: scale(1); }
+}
