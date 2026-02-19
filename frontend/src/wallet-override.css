@@ -74,5 +74,14 @@ body * {
   width: 100% !important;
   box-sizing: border-box !important;
 }
+.wallet-adapter-modal-overlay {
+  z-index: 9999 !important;
+  position: fixed !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
 
 
