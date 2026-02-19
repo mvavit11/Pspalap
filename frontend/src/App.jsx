@@ -5,7 +5,6 @@ import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adap
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import Main from './Main.jsx';
-import '@solana/wallet-adapter-react-ui/styles.css';
 import './App.css';
 export default function App() {
 const network = WalletAdapterNetwork.Mainnet;
