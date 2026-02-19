@@ -102,4 +102,12 @@ body {
   background: #080a0f !important;
   color: #e8edf5 !important;
 }
+html, body, #root {
+  background: #080a0f !important;
+  background-color: #080a0f !important;
+}
+html {
+  overflow-x: hidden !important;
+}
+
 
