@@ -265,3 +265,46 @@ display: flex;
 gap: 10px;
 flex-wrap: wrap;
 }
+
+/* Phantom mobile banner */
+.phantom-banner {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+background: rgba(171,159,242,0.08);
+border-bottom: 1px solid rgba(171,159,242,0.2);
+padding: 12px 16px;
+position: relative;
+z-index: 10;
+}
+
+.phantom-banner__icon {
+font-size: 20px;
+flex-shrink: 0;
+margin-top: 1px;
+}
+
+.phantom-banner__text {
+font-size: 12px;
+color: #c4b8f5;
+line-height: 1.6;
+flex: 1;
+}
+
+.phantom-banner__url {
+font-family: monospace;
+color: #00e5ff;
+font-size: 11px;
+word-break: break-all;
+}
+
+.phantom-banner__close {
+background: none;
+border: none;
+color: #4d606f;
+font-size: 20px;
+cursor: pointer;
+line-height: 1;
+padding: 0;
+flex-shrink: 0;
+}
