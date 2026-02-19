@@ -59,7 +59,7 @@ onConnect={connectWallet}
 onDisconnect={disconnectWallet}
 />
 {notification && (
-<div className={`notification notification--${notification.type}`} key={notification.
+<div className={"notification notification--" + notification.type} key={notification.
 <span>{notification.msg}</span>
 </div>
 )}
@@ -198,3 +198,4 @@ Create Another
 </div>
 </div>
 );
+}
