@@ -52,4 +52,13 @@ body * {
   overflow-x: hidden !important;
   width: 100% !important;
 }
+.pricing {
+  width: 100%;
+  overflow: hidden;
+}
+
+.pricing__cards {
+  width: 100%;
+  overflow: hidden;
+}
 
