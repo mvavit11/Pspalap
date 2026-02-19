@@ -29,14 +29,20 @@ return (
 )
 }
 return (
+<div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p
+{/* Backdrop */}
 <div
-<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
 className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-fade-in"
 onClick={onClose}
 />
-<div className="relative w-full max-w-sm z-10 animate-slide-up">
-<div className="animated-border rounded-2xl overflow-hidden">
-<div className="bg-dark-300 p-6">
+{/* Modal */}
+<div className="relative w-full sm:max-w-sm z-10 animate-slide-up">
+<div className="animated-border rounded-t-2xl sm:rounded-2xl overflow-hidden">
+<div className="bg-dark-300 p-6 max-h-[90vh] overflow-y-auto">
+{/* Drag handle на мобиле */}
+<div className="flex justify-center mb-4 sm:hidden">
+<div className="w-10 h-1 rounded-full bg-white/20" />
+</div>
 {/* Header */}
 <div className="flex items-center justify-between mb-6">
 <div>
@@ -109,8 +115,8 @@ className="w-full flex items-center gap-4 p-4 bg-dark-200/50 hover:bg-d
 <span className="font-semibold text-white/70 group-hover:text-white tra
 {wallet.adapter.name}
 </span>
-<span className="ml-auto text-xs text-white/30 font-mono">Not installed
 </button>
+<span className="ml-auto text-xs text-white/30 font-mono">Not installed
 ))}
 </div>
 </div>
