@@ -21,7 +21,10 @@ setNotification({ msg, type: t, id: Date.now() });
 setTimeout(() => setNotification(null), 5000);
 }, []);
 const connectWallet = useCallback(() => {
+if (typeof window !== 'undefined') {
 setVisible(true);
+setTimeout(() => setVisible(true), 100);
+}
 }, [setVisible]);
 const disconnectWallet = useCallback(async () => {
 await disconnect();
