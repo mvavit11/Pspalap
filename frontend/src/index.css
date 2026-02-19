@@ -109,5 +109,18 @@ html, body, #root {
 html {
   overflow-x: hidden !important;
 }
+.wallet-adapter-modal-wrapper,
+.wallet-adapter-modal,
+[class*="wallet-adapter"] {
+  background: #0d1117 !important;
+  color: #e8edf5 !important;
+}
+
+body > div,
+#root,
+#root > div {
+  background: #080a0f !important;
+  min-height: 100vh;
+}
 
 
