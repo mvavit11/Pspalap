@@ -98,3 +98,8 @@ button {
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
+body {
+  background: #080a0f !important;
+  color: #e8edf5 !important;
+}
+
